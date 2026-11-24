@@ -1,0 +1,32 @@
+{
+  "name": "skillsprout-learnloop",
+  "version": "2.1.0",
+  "private": true,
+  "description": "Student-centered learning roadmap with strict prerequisite validation, progress tracking, role-based access and project documentation.",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js",
+    "test": "jest --runInBand",
+    "test:watch": "jest --watch",
+    "check": "node --check backend/server.js && node --check frontend/js/app.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^11.7.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.7",
+    "supertest": "^7.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

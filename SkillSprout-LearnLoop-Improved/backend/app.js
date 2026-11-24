@@ -1,0 +1,33 @@
+require('dotenv').config();
+const express = require('express');
+const path = require('path');
+const helmet = require('helmet');
+const cors = require('cors');
+const rateLimit = require('express-rate-limit');
+const authRoutes = require('./routes/authRoutes');
+const courseRoutes = require('./routes/courseRoutes');
+const progressRoutes = require('./routes/progressRoutes');
+const app = express();
+
+app.disable('x-powered-by');
+app.use(helmet({ contentSecurityPolicy: false }));
+if (process.env.CORS_ORIGIN) app.use(cors({ origin: process.env.CORS_ORIGIN.split(',') }));
+app.use(express.json({ limit: '20kb' }));
+app.use(express.urlencoded({ extended: false, limit: '20kb' }));
+app.get('/api/health', (req, res) => res.json({ status: 'ok', app: 'SkillSprout LearnLoop' }));
+const authLimiter = rateLimit({ windowMs: 15 * 60 * 1000, limit: 30, standardHeaders: 'draft-7', legacyHeaders: false, message: { error: 'Too many attempts. Please wait a little before trying again.' } });
+app.use('/api/auth/login', authLimiter);
+app.use('/api/auth/register', authLimiter);
+app.use('/api/auth', authRoutes);
+app.use('/api/courses', courseRoutes);
+app.use('/api/progress', progressRoutes);
+app.use('/api', (req, res) => res.status(404).json({ error: 'API route not found.' }));
+app.use(express.static(path.join(__dirname, '../frontend')));
+app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../frontend/index.html')));
+app.use((error, req, res, next) => {
+  if (res.headersSent) return next(error);
+  if (error instanceof SyntaxError && error.status === 400 && 'body' in error) return res.status(400).json({ error: 'Please send valid JSON.' });
+  console.error(error);
+  return res.status(500).json({ error: 'Something went wrong. Please try again.' });
+});
+module.exports = app;

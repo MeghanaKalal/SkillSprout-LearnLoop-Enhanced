@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SkillSprout helps engineering students build a learning path that grows with them.">
+  <title>SkillSprout — LearnLoop</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <section class="auth-screen" id="authScreen">
+    <div class="auth-card">
+      <div class="auth-brand"><span class="brand-mark">✿</span><div>skill<span class="brand-light">sprout</span><small>LEARNLOOP</small></div></div>
+      <div class="eyebrow"><span class="eyebrow-dot"></span> A LITTLE PROGRESS, EVERY DAY</div>
+      <h1 id="authHeading">Welcome back.</h1>
+      <p class="auth-copy" id="authCopy">Sign in to continue growing your skills.</p>
+      <form id="authForm" class="auth-form">
+        <label id="nameField" hidden>Your name<input name="name" id="authName" maxlength="40" autocomplete="name" placeholder="Your name"></label>
+        <label>Email address<input type="email" name="email" id="authEmail" required maxlength="120" autocomplete="email" placeholder="you@example.com"></label>
+        <label>Password<input type="password" name="password" id="authPassword" required minlength="8" maxlength="72" autocomplete="current-password" placeholder="At least 8 characters"></label>
+        <button class="primary-button auth-submit" id="authSubmit" type="submit">Sign in →</button>
+        <p class="auth-error" id="authError" role="alert"></p>
+      </form>
+      <p class="auth-switch" id="authSwitchText">New to SkillSprout? <button type="button" id="authSwitch">Create an account</button></p>
+      <small class="privacy-note">Your learning progress is linked to your account and stored securely on this app's server.</small>
+    </div>
+  </section>
+  <div class="app-shell" id="appShell" hidden>
+
+    <!-- ============ Sidebar ============ -->
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" aria-label="SkillSprout home">
+        <span class="brand-mark">✿</span>
+        <span>skill<span class="brand-light">sprout</span><small>LEARNLOOP</small></span>
+      </a>
+
+      <div class="side-label">YOUR SPACE</div>
+      <nav class="nav-menu" aria-label="Main navigation">
+        <button class="nav-item active" data-view="dashboard"><span>⌂</span> Overview</button>
+        <button class="nav-item" data-view="roadmap"><span>⌁</span> My roadmap</button>
+        <button class="nav-item" data-view="catalog"><span>▦</span> Course library</button>
+        <button class="nav-item" data-view="progress"><span>◔</span> My progress</button>
+      </nav>
+
+      <div class="sidebar-note">
+        <div class="note-leaf">🌱</div>
+        <strong>Little steps add up.</strong>
+        <p>You don't have to learn everything today. Just keep growing.</p>
+      </div>
+
+      <div class="sidebar-bottom">
+        <div class="avatar" id="sideAvatar">S</div>
+        <div class="side-user">
+          <strong id="sideName">Student</strong>
+          <span id="sideBranch">Your learning space</span>
+        </div>
+        <button class="icon-button" id="editProfile" title="Edit your profile" aria-label="Edit profile">⚙</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+
+      <!-- ============ Top bar ============ -->
+      <header class="topbar">
+        <button class="mobile-menu icon-button" id="mobileMenu" aria-label="Open menu">☰</button>
+        <div class="breadcrumb">
+          My learning space <span>/</span> <strong id="pageName">Overview</strong>
+        </div>
+        <div class="topbar-right">
+          <span class="role-chip" id="roleChip">Student</span>
+          <button class="logout-button" id="logoutButton" type="button">Sign out</button>
+          <span class="today-label" id="todayLabel"></span>
+          <div class="top-avatar" id="topAvatar">S</div>
+        </div>
+      </header>
+
+      <!-- ============ Page 1: Overview ============ -->
+      <section class="view active" id="view-dashboard">
+        <div class="welcome-row">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-dot"></span> YOUR LEARNING GARDEN</div>
+            <h1 id="welcomeTitle">A fresh start, one skill at a time.</h1>
+            <p class="subheading">A learning plan that meets you where you are — and helps you get where you want to go.</p>
+          </div>
+          <div class="season-card">
+            <span>☀️</span>
+            <div>
+              <strong>Keep showing up</strong>
+              <small>Consistency beats cramming.</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Four quick numbers -->
+        <div class="stats-grid">
+          <article class="stat-card">
+            <div class="stat-icon sage">▤</div>
+            <div>
+              <span>Courses completed</span>
+              <strong id="completedCount">0</strong>
+              <small>Every finish is a win</small>
+            </div>
+          </article>
+          <article class="stat-card">
+            <div class="stat-icon peach">◷</div>
+            <div>
+              <span>Courses in progress</span>
+              <strong id="activeCount">0</strong>
+              <small>Keep your momentum</small>
+            </div>
+          </article>
+          <article class="stat-card">
+            <div class="stat-icon lilac">✧</div>
+            <div>
+              <span>Credits earned</span>
+              <strong id="creditsCount">0</strong>
+              <small>Learning that adds up</small>
+            </div>
+          </article>
+          <article class="stat-card">
+            <div class="stat-icon mint">◎</div>
+            <div>
+              <span>Overall progress</span>
+              <strong id="overallPercent">0%</strong>
+              <small>You're building a habit</small>
+            </div>
+          </article>
+        </div>
+
+        <div class="dashboard-grid">
+          <!-- Next steps (filled in by renderDashboard in app.js) -->
+          <article class="panel roadmap-preview">
+            <div class="panel-heading">
+              <div>
+                <span class="eyebrow">YOUR NEXT STEPS</span>
+                <h2>Your learning roadmap</h2>
+              </div>
+              <button class="text-button" data-go="roadmap">See full roadmap ↗</button>
+            </div>
+            <div id="dashboardRoadmap" class="mini-roadmap"></div>
+          </article>
+
+          <!-- Student profile summary -->
+          <article class="panel profile-panel">
+            <div class="panel-heading">
+              <div>
+                <span class="eyebrow">YOUR DIRECTION</span>
+                <h2>Made around you</h2>
+              </div>
+              <span class="tiny-leaf">✿</span>
+            </div>
+            <div class="goal-pill" id="goalPill">🌿 Exploring my options</div>
+            <p id="profileSummary">Tell us a little about yourself and we'll shape a starting path that makes sense for you.</p>
+            <button class="outline-button" id="updateProfile">Update my learning profile</button>
+          </article>
+        </div>
+
+        <article class="quote-strip">
+          <span>“</span>
+          <p>You don't need to have it all figured out. You just need a place to begin.</p>
+          <small>— A little reminder from SkillSprout</small>
+        </article>
+      </section>
+
+      <!-- ============ Page 2: Roadmap ============ -->
+      <section class="view" id="view-roadmap">
+        <div class="page-intro">
+          <div class="eyebrow"><span class="eyebrow-dot"></span> YOUR PERSONAL PATH</div>
+          <h1>Progress, at your own pace.</h1>
+          <p>Here's a suggested order for building your skills. Finish the foundations first and the next steps will open up.</p>
+        </div>
+
+        <div class="roadmap-summary panel">
+          <div>
+            <span class="eyebrow">YOUR SELECTED PATH</span>
+            <h2 id="roadmapGoal">Full-Stack Web Development</h2>
+            <p id="roadmapMeta">A suggested four-semester starter journey</p>
+          </div>
+          <div class="summary-progress">
+            <strong id="roadmapPercent">0%</strong>
+            <span>path completed</span>
+          </div>
+        </div>
+
+        <div id="fullRoadmap" class="full-roadmap"></div>
+      </section>
+
+      <!-- ============ Page 3: Course library ============ -->
+      <section class="view" id="view-catalog">
+        <div class="page-intro">
+          <div class="eyebrow"><span class="eyebrow-dot"></span> FIND YOUR NEXT SKILL</div>
+          <h1>A library for curious minds.</h1>
+          <p>Explore the courses in your learning garden. Search by name, code or skill and find a good next step.</p>
+        </div>
+
+        <!-- Search and filters -->
+        <div class="catalog-tools panel">
+          <label class="search-box">
+            <span>⌕</span>
+            <input id="courseSearch" type="search" placeholder="Search courses, codes or skills..." aria-label="Search courses">
+          </label>
+
+          <select id="difficultyFilter" aria-label="Filter by difficulty">
+            <option value="all">All levels</option>
+            <option>Beginner</option>
+            <option>Intermediate</option>
+            <option>Advanced</option>
+          </select>
+
+          <select id="semesterFilter" aria-label="Filter by semester">
+            <option value="all">All semesters</option>
+            <option value="1">Semester 1</option>
+            <option value="2">Semester 2</option>
+            <option value="3">Semester 3</option>
+            <option value="4">Semester 4</option>
+          </select>
+        </div>
+
+        <div class="catalog-meta">
+          <span id="courseResultCount">Showing all courses</span>
+          <span>Choose foundations before advanced topics 🌱</span>
+        </div>
+
+        <section class="panel course-manager" id="courseManager" hidden>
+          <div class="panel-heading"><div><span class="eyebrow">FACULTY WORKSPACE</span><h2>Add a course to the library</h2></div><span class="tiny-leaf">✿</span></div>
+          <form id="courseManagerForm" class="course-manager-form">
+            <label>Course code<input name="id" required maxlength="12" pattern="[A-Z0-9_-]{3,12}" placeholder="WD501"></label>
+            <label>Course title<input name="title" required maxlength="100" minlength="3" placeholder="Advanced Web Development"></label>
+            <label>Credits<input name="credits" type="number" min="1" max="10" value="3" required></label>
+            <label>Level<select name="level"><option>Beginner</option><option>Intermediate</option><option>Advanced</option></select></label>
+            <label>Semester<input name="semester" type="number" min="1" max="8" value="5" required></label>
+            <label>Skills (comma separated)<input name="skills" required placeholder="JavaScript, APIs"></label>
+            <label class="wide-field">Description<textarea name="description" required minlength="10" maxlength="500" rows="2" placeholder="What will students learn?"></textarea></label>
+            <label class="wide-field">Prerequisite course codes (comma separated)<input name="prerequisites" placeholder="WD201, DB201"></label>
+            <label class="wide-field">Learning tracks<select name="tracks" multiple size="3"><option>Full-Stack Web Development</option><option>Artificial Intelligence</option><option>Data Science</option></select><small>Hold Ctrl (Windows) or Command (Mac) to choose more than one.</small></label>
+            <button class="primary-button" type="submit">Save course →</button>
+            <p class="manager-message" id="managerMessage" role="status"></p>
+          </form>
+        </section>
+        <div id="courseGrid" class="course-grid"></div>
+      </section>
+
+      <!-- ============ Page 4: Progress ============ -->
+      <section class="view" id="view-progress">
+        <div class="page-intro">
+          <div class="eyebrow"><span class="eyebrow-dot"></span> LOOK HOW FAR YOU'VE COME</div>
+          <h1>Every little win counts.</h1>
+          <p>Your progress is saved to your account, so you can come back and pick up where you left off.</p>
+        </div>
+
+        <div class="progress-layout">
+          <!-- Progress ring -->
+          <article class="panel progress-main">
+            <span class="eyebrow">YOUR LEARNING JOURNEY</span>
+            <div class="progress-ring-wrap">
+              <div class="progress-ring" id="progressRing">
+                <div>
+                  <strong id="ringPercent">0%</strong>
+                  <span>completed</span>
+                </div>
+              </div>
+            </div>
+            <h2 id="progressHeadline">Your story is just beginning.</h2>
+            <p id="progressMessage">Enroll in a course and take your first step. We'll keep track as you go.</p>
+          </article>
+
+          <!-- Credits -->
+          <article class="panel credit-panel">
+            <span class="eyebrow">CREDITS AT A GLANCE</span>
+            <div class="credit-number">
+              <strong id="earnedCredits">0</strong>
+              <span>/ <b id="totalCredits">0</b> credits</span>
+            </div>
+            <div class="credit-track"><span id="creditBar"></span></div>
+            <p>Credits are counted when you mark a course as complete.</p>
+            <div class="credit-detail"><span>Completed courses</span><strong id="progressCompleted">0</strong></div>
+            <div class="credit-detail"><span>Currently learning</span><strong id="progressActive">0</strong></div>
+          </article>
+        </div>
+
+        <!-- Checklist of enrolled courses -->
+        <article class="panel activity-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="eyebrow">YOUR CHECKLIST</span>
+              <h2>Courses you've picked</h2>
+            </div>
+            <button class="text-button" data-go="catalog">Explore courses ↗</button>
+          </div>
+          <div id="progressCourseList" class="progress-course-list"></div>
+        </article>
+      </section>
+
+      <footer class="footer">
+        <span>✿ SkillSprout — LearnLoop</span>
+        <span>Made for learners who are still growing.</span>
+      </footer>
+    </main>
+  </div>
+
+  <!-- ============ Welcome / profile dialog ============ -->
+  <div class="modal-backdrop" id="onboardingModal" role="dialog" aria-modal="true" aria-labelledby="onboardingTitle">
+    <div class="modal">
+      <button class="modal-close" id="closeModal" aria-label="Close dialog">×</button>
+      <div class="modal-illustration">🌿</div>
+      <div class="eyebrow">LET'S GET TO KNOW YOU</div>
+      <h2 id="onboardingTitle">Every good path starts with you.</h2>
+      <p class="modal-copy">A few quick details will help us suggest a learning path that feels right for your starting point.</p>
+
+      <form id="profileForm">
+        <div class="form-grid">
+          <label>Your name
+            <input name="name" id="studentName" placeholder="What should we call you?" required maxlength="40">
+          </label>
+
+          <label>Your branch
+            <select name="branch" id="branch" required>
+              <option value="CSE">Computer Science (CSE)</option>
+              <option value="CSE (AI & DS)">CSE – AI & Data Science</option>
+              <option value="IT">Information Technology</option>
+              <option value="ECE">Electronics & Communication</option>
+              <option value="Other">Other engineering branch</option>
+            </select>
+          </label>
+
+          <label>Current semester
+            <select name="semester" id="semester">
+              <option value="1">Semester 1</option>
+              <option value="2">Semester 2</option>
+              <option value="3">Semester 3</option>
+              <option value="4">Semester 4</option>
+            </select>
+          </label>
+
+          <label>Programming experience
+            <select name="experience" id="experience">
+              <option value="New to coding">I'm new to coding</option>
+              <option value="Some basics">I know a few basics</option>
+              <option value="Comfortable">I'm fairly comfortable</option>
+            </select>
+          </label>
+
+          <label class="full-field">What would you like to explore?
+            <select name="goal" id="goal">
+              <option value="Full-Stack Web Development">Full-Stack Web Development</option>
+              <option value="Artificial Intelligence">Artificial Intelligence</option>
+              <option value="Data Science">Data Science</option>
+              <option value="Not sure yet">I'm still exploring</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="skip-button" id="skipOnboarding">I'll do this later</button>
+          <button class="primary-button" type="submit">Build my learning path →</button>
+        </div>
+      </form>
+
+      <small class="privacy-note">Your profile is saved securely with your account.</small>
+    </div>
+  </div>
+
+  <!-- Small pop-up message (text is set from app.js) -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
